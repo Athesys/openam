@@ -1,0 +1,3 @@
+[submodule "opendj"]
+	path = opendj
+	url = git@github.com:Athesys/opendj.git
