@@ -25,6 +25,8 @@
  * $Id: CookieUtils.java,v 1.6 2009/10/02 00:08:26 ericow Exp $
  *
  * Portions Copyrighted 2014-2016 ForgeRock AS.
+ * 
+ * Portions Copyrighted 208 Athesys.
  */
 
 package com.sun.identity.shared.encode;
@@ -405,7 +407,7 @@ public class CookieUtils {
      * @param cookie 
      */
     public static void addCookieToResponse(HttpServletResponse response, Cookie cookie) {
-        if (cookie == null) {
+        if (response == null || cookie == null) {
             return;
         }
         if (!isCookieHttpOnly()) {

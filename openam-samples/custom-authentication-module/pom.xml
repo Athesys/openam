@@ -13,6 +13,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2013-2016 ForgeRock AS.
+ * Portions Copyright 2018 Athesys.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -31,7 +32,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-     <repositories>
+     <!-- <repositories>
         <repository>
             <id>forgerock-releases</id>
             <url>http://maven.forgerock.org/repo/releases</url>
@@ -40,7 +41,7 @@
             <id>forgerock-snapshots</id>
             <url>http://maven.forgerock.org/repo/snapshots</url>
         </repository>
-    </repositories>
+    </repositories> -->
 
     <dependencies>
         <dependency>

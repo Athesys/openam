@@ -29,7 +29,7 @@ import com.sun.identity.shared.debug.Debug;
 public class SharedGuiceModuleTest {
     @Test
     public void shouldCreatePoolWithFactory() {
-        AMExecutorServiceFactory mockFactory = mock(AMExecutorServiceFactory.class);
+    	AMExecutorServiceFactory mockFactory = mock(AMExecutorServiceFactory.class);
         new SharedGuiceModule().provideThreadMonitor(mockFactory, mock(ShutdownManager.class), mock(Debug.class));
         verify(mockFactory).createCachedThreadPool(anyString());
     }

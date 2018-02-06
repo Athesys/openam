@@ -13,6 +13,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2011-2016 ForgeRock AS.
+ * Portions Copyright 2018 Athesys.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -620,10 +621,10 @@
                             <manifestEntries>
                                 <Specification-Title>OpenAM Java CLient SDK</Specification-Title>
                                 <Specification-Version>${project.version} - ${maven.build.timestamp}</Specification-Version>
-                                <Specification-Vendor>ForgeRock</Specification-Vendor>
+                                <Specification-Vendor>Athesys</Specification-Vendor>
                                 <Implementation-Title>OpenAM Java Client SDK</Implementation-Title>
                                 <Implementation-Version>${project.version} - ${maven.build.timestamp}</Implementation-Version>
-                                <Implementation-Vendor>ForgeRock</Implementation-Vendor>
+                                <Implementation-Vendor>Athesys</Implementation-Vendor>
                                 <Built-By>${user.name}</Built-By>
                                 <Build-Jdk>${java.version}</Build-Jdk>
                                 <Build-Time>${maven.build.timestamp}</Build-Time>
@@ -651,6 +652,7 @@
                             <excludes>
                                 <exclude>com.sun.identity.**.*</exclude>
                                 <exclude>com.iplanet.**.*</exclude>
+                                <exclude>com.google.**.*</exclude>
                             </excludes>
                         </relocation>
                         <relocation>
@@ -710,13 +712,9 @@
             <artifactId>opendj-grizzly</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.forgerock.commons.guava</groupId>
-            <artifactId>forgerock-guava-collect</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.forgerock.commons.guava</groupId>
-            <artifactId>forgerock-guava-base</artifactId>
-        </dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>        
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>

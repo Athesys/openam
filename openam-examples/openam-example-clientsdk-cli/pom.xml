@@ -13,6 +13,7 @@
  * information: "Portions copyright [year] [name of copyright owner]".
  *
  * Copyright 2013-2016 ForgeRock AS.
+ * Portions Copyright 2018 Athesys.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -73,12 +74,16 @@
             <artifactId>commons-logging</artifactId>
         </dependency>
         <dependency>
-            <groupId>external</groupId>
+            <groupId>com.sun.xml.rpc</groupId>
             <artifactId>jaxrpc-impl</artifactId>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
+        </dependency> -->
+        <dependency>
+            <groupId>org.glassfish.metro</groupId>
+            <artifactId>wsit-impl</artifactId>
         </dependency>
     </dependencies>
 </project>

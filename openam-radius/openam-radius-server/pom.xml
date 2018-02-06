@@ -42,8 +42,8 @@
            <scope>provided</scope>
        </dependency>
         <dependency>
-	        <groupId>org.forgerock.commons.guava</groupId>
-	        <artifactId>forgerock-guava-eventbus</artifactId>        
+	        <groupId>com.google.guava</groupId>
+	        <artifactId>guava</artifactId>        
         </dependency>      
   </dependencies>
 
