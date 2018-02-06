@@ -7,3 +7,5 @@ openam-ui/openam-ui-ria/npm-debug.log.*
 .idea/
 
 .project
+
+/lib

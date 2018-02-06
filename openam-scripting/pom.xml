@@ -189,6 +189,7 @@
             <plugin>
                 <groupId>org.forgerock.maven.plugins</groupId>
                 <artifactId>build-helper-plugin</artifactId>
+                <version>14.0.0-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <id>inject-content</id>

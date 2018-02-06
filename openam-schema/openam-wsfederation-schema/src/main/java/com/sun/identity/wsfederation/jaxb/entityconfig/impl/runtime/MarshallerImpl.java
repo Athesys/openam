@@ -48,7 +48,7 @@ import com.sun.xml.bind.marshaller.XMLWriter;
 import com.sun.identity.shared.xml.XMLUtils;
 
 /**
- * Implementation of {@link Marshaller} interface for JAXB RI.
+ * Implementation of {-@-link Marshaller} interface for JAXB RI.
  * 
  * @author Kohsuke Kawaguchi
  * @author Vivek Pandey

@@ -94,10 +94,10 @@ public class OfflineResolver extends ResourceResolverSpi {
 						"The URI " + URI + " is not configured for offline work" };
 
 				throw new ResourceResolverException("generic.EmptyMessage", exArgs,
-						uri, BaseURI);
+						uri.getNodeValue(), BaseURI);
 			}
 		} catch (IOException ex) {
-			throw new ResourceResolverException("generic.EmptyMessage", ex, uri,
+			throw new ResourceResolverException("generic.EmptyMessage", ex, uri.getNodeValue(),
 					BaseURI);
 		}
 	}
