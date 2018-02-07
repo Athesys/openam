@@ -1,6 +1,6 @@
 {
   "name": "openam-ui-api",
-  "version": "14.0.0",
+  "version": "14.0.0-SNAPSHOT",
   "private": true,
   "scripts": {
     "build:production": "grunt build:prod",
