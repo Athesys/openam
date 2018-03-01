@@ -102,8 +102,11 @@
 							<version>0.9.12</version>
 							<packaging>js</packaging>
 							<downloadUrl>
-								https://raw.githubusercontent.com/ilikenwf/nestedSortable/v1.3.3/jquery.ui.nestedSortable.js
+								https://cdnjs.cloudflare.com/ajax/libs/jquery-sortable/0.9.12/jquery-sortable.js
 							</downloadUrl>
+							<!--<downloadUrl>
+								https://raw.githubusercontent.com/ilikenwf/nestedSortable/v1.3.3/jquery.ui.nestedSortable.js
+							</downloadUrl>-->
 						</artifactItem>
 						<artifactItem>
 							<groupId>org.forgerock.commons.ui.libs</groupId>
