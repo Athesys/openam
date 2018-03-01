@@ -1,3 +1,7 @@
+"use strict";
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 /**
  * The contents of this file are subject to the terms of the Common Development and
  * Distribution License (the License). You may not use this file except in compliance with the
@@ -14,17 +18,7 @@
  * Copyright 2015-2016 ForgeRock AS.
  */
 
-define([
-    "jquery",
-    "lodash",
-    "backbone",
-    "moment",
-    "org/forgerock/commons/ui/common/backgrid/Backgrid",
-    "org/forgerock/commons/ui/common/backgrid/extension/ThemeableServerSideFilter",
-    "org/forgerock/commons/ui/common/components/Messages",
-    "org/forgerock/commons/ui/common/main/Router",
-    "org/forgerock/commons/ui/common/util/UIUtils"
-], function ($, _, Backbone, moment, Backgrid, ThemeableServerSideFilter, Messages, Router, UIUtils) {
+define(["jquery", "lodash", "backbone", "moment", "org/forgerock/commons/ui/common/backgrid/Backgrid", "org/forgerock/commons/ui/common/backgrid/extension/ThemeableServerSideFilter", "org/forgerock/commons/ui/common/components/Messages", "org/forgerock/commons/ui/common/main/Router", "org/forgerock/commons/ui/common/util/UIUtils"], function ($, _, Backbone, moment, Backgrid, ThemeableServerSideFilter, Messages, Router, UIUtils) {
     /**
      * @exports org/forgerock/openam/ui/common/util/BackgridUtils
      */
@@ -38,11 +32,11 @@ define([
     obj.DatetimeAgoCell = Backgrid.Cell.extend({
         className: "date-time-ago-cell",
         formatter: {
-            fromRaw (rawData) {
+            fromRaw: function fromRaw(rawData) {
                 return moment(rawData).fromNow();
             }
         },
-        render () {
+        render: function render() {
             obj.DatetimeAgoCell.__super__.render.apply(this);
             this.$el.attr("title", moment(this.model.get(this.column.get("name"))).format("Do MMMM YYYY, h:mm:ssa"));
             return this;
@@ -57,23 +51,22 @@ define([
     obj.ArrayCell = Backgrid.Cell.extend({
         className: "array-formatter-cell",
 
-        buildHtml (arrayVal) {
+        buildHtml: function buildHtml(arrayVal) {
             var result = "<ul>",
                 i = 0;
 
             for (; i < arrayVal.length; i++) {
                 if (_.isString(arrayVal[i])) {
-                    result += `<li>${arrayVal[i]}</li>`;
+                    result += "<li>" + arrayVal[i] + "</li>";
                 } else {
-                    result += `<li>${JSON.stringify(arrayVal[i])}</li>`;
+                    result += "<li>" + JSON.stringify(arrayVal[i]) + "</li>";
                 }
             }
             result += "</ul>";
 
             return result;
         },
-
-        render () {
+        render: function render() {
             this.$el.empty();
 
             var arrayVal = this.model.get(this.column.attributes.name);
@@ -92,7 +85,7 @@ define([
     obj.ObjectCell = Backgrid.Cell.extend({
         className: "object-formatter-cell",
 
-        render () {
+        render: function render() {
             this.$el.empty();
 
             var object = this.model.get(this.column.attributes.name),
@@ -101,9 +94,9 @@ define([
 
             for (prop in object) {
                 if (_.isString(object[prop])) {
-                    result += `<dt>${prop}</dt><dd>${object[prop]}</dd>`;
+                    result += "<dt>" + prop + "</dt><dd>" + object[prop] + "</dd>";
                 } else {
-                    result += `<dt>${prop}</dt><dd>${JSON.stringify(object[prop])}</dd>`;
+                    result += "<dt>" + prop + "</dt><dd>" + JSON.stringify(object[prop]) + "</dd>";
                 }
             }
             result += "</dl>";
@@ -117,11 +110,11 @@ define([
 
     obj.UniversalIdToUsername = Backgrid.Cell.extend({
         formatter: {
-            fromRaw (rawData) {
+            fromRaw: function fromRaw(rawData) {
                 return rawData.substring(3, rawData.indexOf(",ou=user"));
             }
         },
-        render () {
+        render: function render() {
             obj.UniversalIdToUsername.__super__.render.apply(this);
             this.$el.attr("title", this.model.get(this.column.get("name")));
             return this;
@@ -143,13 +136,12 @@ define([
             "keyup": "onKeyup"
         },
 
-        onKeyup (e) {
+        onKeyup: function onKeyup(e) {
             if (e.keyCode === 13 && this.callback) {
                 this.callback(e);
             }
         },
-
-        onClick (e) {
+        onClick: function onClick(e) {
             if (this.callback) {
                 this.callback(e);
             }
@@ -167,7 +159,7 @@ define([
      */
     obj.TemplateCell = Backgrid.Cell.extend({
         className: "template-cell",
-        render () {
+        render: function render() {
             var self = this;
 
             UIUtils.fillTemplateWithData(this.template, this.model, function (content) {
@@ -185,7 +177,7 @@ define([
 
     obj.ClassHeaderCell = Backgrid.HeaderCell.extend({
         className: "",
-        render () {
+        render: function render() {
             obj.ClassHeaderCell.__super__.render.apply(this);
             this.delegateEvents();
             return this;
@@ -196,12 +188,11 @@ define([
         events: {
             "click": "gotoUrl"
         },
-        render () {
+        render: function render() {
             this.$el.empty();
             var rawValue = this.model.get(this.column.get("name")),
                 formattedValue = this.formatter.fromRaw(rawValue, this.model),
-                href = _.isFunction(this.column.get("href"))
-                    ? this.column.get("href")(rawValue, formattedValue, this.model) : this.column.get("href");
+                href = _.isFunction(this.column.get("href")) ? this.column.get("href")(rawValue, formattedValue, this.model) : this.column.get("href");
 
             this.$el.append($("<a>", {
                 href: href || rawValue,
@@ -216,18 +207,16 @@ define([
             this.delegateEvents();
             return this;
         },
-
-        gotoUrl (e) {
+        gotoUrl: function gotoUrl(e) {
             e.preventDefault();
             var href = $(e.currentTarget).data("href");
             Router.navigate(href, { trigger: true });
         }
-
     });
 
     obj.FilterHeaderCell = Backgrid.HeaderCell.extend({
         className: "filter-header-cell enable-pointer",
-        render () {
+        render: function render() {
             var filter = new Backgrid.Extension.ThemeableServerSideFilter({
                 name: this.column.get("name"),
                 placeholder: $.t("common.form.filter"),
@@ -247,24 +236,27 @@ define([
     });
 
     obj.queryFilter = function (data) {
-        if (data === undefined) { data = {}; }
+        if (data === undefined) {
+            data = {};
+        }
 
         var params = [],
             additionalFilters = data._queryFilter || [],
-            getFilter = (function () {
-                return data && data.filterName && data.filterName === "eq"
-                    ? function (filterName, filterQuery) {
-                        // Policies endpoints do not support 'co', so we emulate it using 'eq' and wildcards
-                        return `${filterName}+eq+${encodeURIComponent(`"*${filterQuery}*"`)}`;
-                    }
-                    : function (filterName, filterQuery) {
-                        return `${filterName}+co+${encodeURIComponent(`"${filterQuery}"`)}`;
-                    };
-            }());
+            getFilter = function () {
+            return data && data.filterName && data.filterName === "eq" ? function (filterName, filterQuery) {
+                // Policies endpoints do not support 'co', so we emulate it using 'eq' and wildcards
+                return filterName + "+eq+" + encodeURIComponent("\"*" + filterQuery + "*\"");
+            } : function (filterName, filterQuery) {
+                return filterName + "+co+" + encodeURIComponent("\"" + filterQuery + "\"");
+            };
+        }();
 
         _.each(this.state.filters, function (filter) {
-            if (filter.query() !== "") {
-                params.push(getFilter(filter.name, filter.query()));
+
+	    var query = filter.el.childNodes[0].value;
+
+            if (/*filter.query()*/ query !== "") {
+                params.push(getFilter(filter.name, /*filter.query()*/ query));
             }
         });
         params = params.concat(additionalFilters);
@@ -287,7 +279,7 @@ define([
     };
 
     obj.sortKeys = function () {
-        return this.state.order === 1 ? `-${this.state.sortKey}` : this.state.sortKey;
+        return this.state.order === 1 ? "-" + this.state.sortKey : this.state.sortKey;
     };
 
     obj.sync = function (method, model, options) {
@@ -304,9 +296,11 @@ define([
 
         _.forIn(options.data, function (val, key) {
             if (_.include(includeList, key)) {
-                params.push(`${key}=${val}`);
+        	//if (key === "_pageSize") {params.push("_pageSize=500");}
+                /*else {*/params.push(key + "=" + val);/*}*/
             }
         });
+
 
         options.data = params.join("&");
         options.processData = false;
@@ -320,7 +314,7 @@ define([
         options.error = function (response) {
             Messages.addMessage({
                 type: Messages.TYPE_DANGER,
-                response
+                response: response
             });
         };
 
@@ -336,9 +330,10 @@ define([
 
         return {
             _sortKeys: this.sortKeys,
-            _queryFilter () {
+            _queryFilter: function _queryFilter() {
                 return obj.queryFilter.call(this, data);
             },
+
             pageSize: "_pageSize",
             _pagedResultsOffset: this.pagedResultsOffset
         };
@@ -350,8 +345,8 @@ define([
         // No ids so identify model with CID
         var cid = model.cid,
             filtered = model.collection.filter(function (model) {
-                return model.cid !== cid;
-            });
+            return model.cid !== cid;
+        });
 
         _.each(filtered, function (model) {
             model.set("direction", null);
@@ -364,7 +359,7 @@ define([
             sortKey: "name"
         };
 
-        if (data && typeof data === "object") {
+        if (data && (typeof data === "undefined" ? "undefined" : _typeof(data)) === "object") {
             _.extend(state, data);
         }
         return state;
