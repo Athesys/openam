@@ -1,7 +1,3 @@
-"use strict";
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 /**
  * The contents of this file are subject to the terms of the Common Development and
  * Distribution License (the License). You may not use this file except in compliance with the
@@ -18,64 +14,75 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
  * Copyright 2015-2016 ForgeRock AS.
  */
 
-define(["jquery", "lodash", "backbone", "moment", "org/forgerock/commons/ui/common/backgrid/Backgrid", "org/forgerock/commons/ui/common/backgrid/extension/ThemeableServerSideFilter", "org/forgerock/commons/ui/common/components/Messages", "org/forgerock/commons/ui/common/main/Router", "org/forgerock/commons/ui/common/util/UIUtils"], function ($, _, Backbone, moment, Backgrid, ThemeableServerSideFilter, Messages, Router, UIUtils) {
-    /**
-     * @exports org/forgerock/openam/ui/common/util/BackgridUtils
-     */
-    var obj = {};
+define([
+    "jquery",
+    "lodash",
+    "backbone",
+    "moment",
+    "org/forgerock/commons/ui/common/backgrid/Backgrid",
+    "org/forgerock/commons/ui/common/backgrid/extension/ThemeableServerSideFilter",
+    "org/forgerock/commons/ui/common/components/Messages",
+    "org/forgerock/commons/ui/common/main/Router",
+    "org/forgerock/commons/ui/common/util/UIUtils"],
+    function ($, _, Backbone, moment, Backgrid, ThemeableServerSideFilter, Messages, Router, UIUtils) {
+        /**
+         * @exports org/forgerock/openam/ui/common/util/BackgridUtils
+         */
+        var obj = {};
 
-    /**
-     * Datetime Ago Cell Renderer
-     * <p>
-     * Displays human friendly date time text (e.g. 4 "hours ago") with a tooltip of the exact time
-     */
-    obj.DatetimeAgoCell = Backgrid.Cell.extend({
-        className: "date-time-ago-cell",
-        formatter: {
-            fromRaw: function fromRaw(rawData) {
-                return moment(rawData).fromNow();
-            }
-        },
-        render: function render() {
-            obj.DatetimeAgoCell.__super__.render.apply(this);
-            this.$el.attr("title", moment(this.model.get(this.column.get("name"))).format("Do MMMM YYYY, h:mm:ssa"));
-            return this;
-        }
-    });
-
-    /**
-     * Array Cell
-     * <p>
-     * Displays cell content as an unordered list. Used for cells which values are arrays
-     */
-    obj.ArrayCell = Backgrid.Cell.extend({
-        className: "array-formatter-cell",
-
-        buildHtml: function buildHtml(arrayVal) {
-            var result = "<ul>",
-                i = 0;
-
-            for (; i < arrayVal.length; i++) {
-                if (_.isString(arrayVal[i])) {
-                    result += "<li>" + arrayVal[i] + "</li>";
-                } else {
-                    result += "<li>" + JSON.stringify(arrayVal[i]) + "</li>";
+        /**
+         * Datetime Ago Cell Renderer
+         * <p>
+         * Displays human friendly date time text (e.g. 4 "hours ago") with a tooltip of the exact time
+         */
+        obj.DatetimeAgoCell = Backgrid.Cell.extend({
+            className: "date-time-ago-cell",
+            formatter: {
+                fromRaw: function fromRaw (rawData) {
+                    return moment(rawData).fromNow();
                 }
+            },
+            render: function render () {
+                obj.DatetimeAgoCell.__super__.render.apply(this);
+                this.$el.attr("title",
+                moment(this.model.get(this.column.get("name"))).format("Do MMMM YYYY, h:mm:ssa"));
+                return this;
             }
-            result += "</ul>";
+        });
 
-            return result;
-        },
-        render: function render() {
-            this.$el.empty();
+        /**
+         * Array Cell
+         * <p>
+         * Displays cell content as an unordered list. Used for cells which values are arrays
+         */
+        obj.ArrayCell = Backgrid.Cell.extend({
+            className: "array-formatter-cell",
 
-            var arrayVal = this.model.get(this.column.attributes.name);
-            this.$el.append(this.buildHtml(arrayVal));
+            buildHtml: function buildHtml (arrayVal) {
+                var result = "<ul>",
+                    i = 0;
 
-            this.delegateEvents();
-            return this;
-        }
-    });
+                for (; i < arrayVal.length; i++) {
+                    if (_.isString(arrayVal[i])) {
+                        result += "<li>" + arrayVal[i] + "</li>";
+                    } else {
+                        result += "<li>" + JSON.stringify(arrayVal[i]) + "</li>";
+                    }
+                }
+                result += "</ul>";
+
+                return result;
+            },
+            render: function render() {
+                this.$el.empty();
+
+                var arrayVal = this.model.get(this.column.attributes.name);
+                this.$el.append(this.buildHtml(arrayVal));
+
+                this.delegateEvents();
+                return this;
+            }
+        });
 
     /**
      * Object Cell
